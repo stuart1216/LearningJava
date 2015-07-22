@@ -429,4 +429,121 @@ public class CalendarTest{
 }
 ```
 
+## Chapter 4.5
+###ParamTest.java
+Java中是值传递，对象是引用的，所以不能够直接的对其中的值进行操作。  
+Java中方法参数的使用：
+- 一个方法不能修改一个基本数据类型的参数（即数值型和布尔型）。
+```
+Testing tripleValue:
+Before: precent = 10.0
+End of Method: x = 30.0
+After: precent = 10.0
+```
+- 一个方法可以改变一个对象参数的状态。
+```
+Testing tripleSalary:
+Before: salary = 500000.0
+End of Method: Salary = 1500000.0
+After: salary = 1500000.0
+```
+- 一个方法不能让对象引用一个新的对象。
+```
+Testing swaping:
+Before a = Alice
+Before b = Booom
+End of method: x = Booom
+End of method: y = Alice
+After a = Alice
+After b = Booom
+```
 
+```java
+/** 
+This program demonstrates parameter passing in Java.
+Modified based on Program4-4 in CoreJava Phase I.
+@ Hongquan Su(Adam Su)
+@ version: 1.00
+@ Date: 2015-07-22
+*/
+public class ParamTest{
+	public static void main(String [] args){
+
+		/*
+		Test 1: Methods can't modify numeric parameters
+		*/
+		System.out.println("\nTesting tripleValue:");
+		double percent = 10;
+		System.out.println("Before: precent = " + percent);
+		tripleValue(percent);
+		System.out.println("After: precent = " + percent);
+
+		/*
+		Test 2: Methods can change the state of object parameters
+		*/
+		System.out.println("\nTesting tripleSalary: ");
+		Employee harry = new Employee("Harry", 500000);
+		System.out.println("Before: salary = " + harry.getSalary());
+		tripleSalary(harry);
+		System.out.println("After: salary = " + harry.getSalary());
+
+		/*
+		Test 3: Methods can't attach new objects to object parameters
+		*/
+		System.out.println("\nTesting swaping: ");
+		Employee a = new Employee("Alice", 30000);
+		Employee b = new Employee("Booom", 50000);
+		System.out.println("Before a = " + a.getName());
+		System.out.println("Before b = " + b.getName());
+		swap(a,b);
+		System.out.println("After a = " + a.getName());
+		System.out.println("After b = " + b.getName());
+
+
+
+	}
+
+	public static void tripleValue(double x){
+		x = 3 * x;
+		System.out.println("End of Method: x = " + x);
+	}
+
+	public static void tripleSalary(Employee x){
+		x.raiseSalary(200);
+		System.out.println("End of Meth/od: Salary = " + x.getSalary());
+	}
+
+	public static void swap(Employee x, Employee y) {
+		Employee temp = x;
+		x = y; 
+		y = temp;
+		System.out.println("End of method: x = " + x.getName());
+		System.out.println("End of method: y = " + y.getName());
+	}
+
+}
+class Employee{
+	private String name;
+	private double salary;
+
+	public Employee(String n, double s){
+		this.name = n;
+		this.salary = s;
+	}
+
+	public String getName(){
+		return name;
+	}
+
+	public double getSalary(){
+		return salary;
+	}
+
+	public void raiseSalary(double byPercent){
+		double raise = this.salary * byPercent / 100;
+		this.salary += raise;
+	}
+}
+
+
+```
