@@ -1,5 +1,5 @@
 package interfaces;
-
+//
 public class Employee implements Comparable <Employee>{
 	private String name;
 	private double salary;
